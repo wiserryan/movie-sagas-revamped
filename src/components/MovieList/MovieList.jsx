@@ -10,16 +10,27 @@ function MovieList() {
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
+// 3
+const displayMovie = (movieToDisplay) => {
+    console.log(movieToDisplay);
+    // dispatch is how we get data 
+    // in to (redux) & in to (sagas)
+    dispatch({ type: 'SET_MOVIE_DETAILS', payload: movieToDisplay })
+}
 
     return (
         <main>
             <h1>MovieList</h1>
             <section className="movies">
+                {/* Movies is an Array */}
                 {movies.map(movie => {
+                    // for each movie in the array,
+                    // display it on the DOM
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title}/>
+                            {/* 2  */}
+                            <img onClick={(event) => displayMovie(movie)} src={movie.poster} alt={movie.title}/>
                         </div>
                     );
                 })}

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App.js';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers, applyMiddleware, legacy_createStore } from 'redux';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
@@ -51,12 +51,24 @@ const genres = (state = [], action) => {
             return state;
     }
 }
+//! 1 will send it somewhere when you click on movie poster//!
+// WE want selected movie to be movie to display here
+const selectedMovie = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_MOVIE_DETAILS':
+            return action.payload;
+            default:
+                return state;
+    }
+
+}
 
 // Create one store that all components can use
-const storeInstance = createStore(
+const storeInstance = legacy_createStore(
     combineReducers({
         movies,
         genres,
+        selectedMovie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
