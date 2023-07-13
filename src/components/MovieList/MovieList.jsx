@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './MovieList.css'
 
 function MovieList() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const movies = useSelector(store => store.movies);
 
     useEffect(() => {
@@ -16,6 +18,8 @@ const displayMovie = (movieToDisplay) => {
     // dispatch is how we get data 
     // in to (redux) & in to (sagas)
     dispatch({ type: 'SET_MOVIE_DETAILS', payload: movieToDisplay })
+    // 7 moves to next page
+    history.push('/detail');
 }
 
     return (
