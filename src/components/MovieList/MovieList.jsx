@@ -15,11 +15,12 @@ function MovieList() {
 // 3
 const displayMovie = (movieToDisplay) => {
     console.log(movieToDisplay);
-    // dispatch is how we get data 
-    // in to (redux) & in to (sagas)
+    //  dispatch is how we get data 
+    //  in to (redux) & in to (sagas)
     dispatch({ type: 'SET_MOVIE_DETAILS', payload: movieToDisplay })
-    // 7 moves to next page
-    history.push('/detail');
+    //  7 moves to next page
+    history.push(`/detail/${movieToDisplay.id}`);
+// also add this to app.jsx (exact path="/detail/:id")
 }
 
     return (

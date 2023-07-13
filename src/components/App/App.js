@@ -17,7 +17,7 @@ function App() {
         
         {/* Details page */}
       {/* 6 */}
-      <Route exact path="/detail">
+      <Route exact path="/detail/:movieId">
         <MovieDetail />
       </Route>
         {/* Add Movie page */}
