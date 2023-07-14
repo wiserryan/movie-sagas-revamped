@@ -3,9 +3,9 @@ const router = express.Router();
 const pool = require('../modules/pool')
 
 router.get('/:id', (req, res) => {
-  const query = `SELECT * FROM genres JOIN "movies_genres"
-                ON "genres"."id" = "movies_genres"."genre_id"
-                WHERE "movies_genres"."movie_id"=$1`;
+  const query = `SELECT "name" FROM genres JOIN "movies_genres"
+                 ON "genres"."id" = "movies_genres"."genre_id"
+                 WHERE "movies_genres"."movie_id"=$1`;
   pool.query(query, [req.params.id])
     .then( result => {
       // returns first item in the array ( which is an object)
@@ -16,5 +16,7 @@ router.get('/:id', (req, res) => {
       res.sendStatus(500)
     })
 });
+
+
 
 module.exports = router;

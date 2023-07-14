@@ -15,19 +15,27 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
 //   10
-    yield takeEvery('FECTH_MOVIE_DETAILS', fetchMovieDetails);
+    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
+    yield takeEvery('FETCH_MOVIE_GENRES', fetchMovieGenre);
 }
 //  11
 function* fetchMovieDetails(action) {
     try {
-        const movie = yield axios.get(`/api/movie/${action.payload}`);
+        const movie = yield axios.get(`/api/movie/${action.payload}`)
         yield put({ type: 'SET_MOVIE_DETAILS', payload: movie.data });
         // fetch genres after fetch moviedetails
-        const genres = yield axios.get(`/api/genre/${action.payload}`);
-        yield put({ type: 'SET_GENRES', payload: genres.data});
     } catch (e) {
         console.log(e);
     }
+}
+
+function* fetchMovieGenre(action) {
+    try {
+    const genres = yield axios.get(`/api/genre/${action.payload}`);
+    yield put({ type: 'SET_GENRES', payload: genres.data});
+} catch (e) {
+    console.log(e);
+}
 }
 
 function* fetchAllMovies() {
@@ -67,6 +75,7 @@ const genres = (state = [], action) => {
 }
 //! 1 will send it somewhere when you click on movie poster//!
 // WE want selected movie to be movie to display here
+// selectedMovie = movieToDisplay;
 const selectedMovie = (state = {}, action) => {
     switch (action.type) {
         case 'SET_MOVIE_DETAILS':

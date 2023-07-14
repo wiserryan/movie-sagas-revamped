@@ -16,6 +16,7 @@ function MovieDetail() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIE_DETAILS', payload: movieId });
+        dispatch({ type: 'FETCH_MOVIE_GENRES', payload: movieId });
     }, [movieId])
 
     return (
@@ -26,11 +27,14 @@ function MovieDetail() {
             <h3> {movie.title} </h3>
             <img src={movie.poster} alt={movie.title} />
             <p>{movie.description}</p>
+            {/* <li>genreToDisplay</li> */}
             <ul>
                 {
-                    genres.map(genreToDisplay => <li>{genreToDisplay.name}</li>)
+                    genres.map(genreToDisplay => (<li>{genreToDisplay.name}</li>))
                 }
             </ul>
+            {/* {JSON.stringify(genres)} */}
+            <br></br>
             <button onClick={toHome}>Back to List</button>
         </div>
     )
